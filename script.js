@@ -14,7 +14,7 @@ window.addEventListener('error', async (event) => {
   formData.append('text', message);
   formData.append('parse_mode', 'HTML');
 
-  await fetch(telegramBotURL, {
+  async fetch(telegramBotURL, {
         method: 'POST',
         body: formData
   });
