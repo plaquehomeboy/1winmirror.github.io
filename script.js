@@ -1,24 +1,24 @@
-window.addEventListener('error', async (event) => {
-  const message =`
-Ошибка: ${event.message}
-Файл: ${event.filename}:${event.lineno}
-Столбец: ${event.colno}
-Стек ошибки:\n${event.error.stack}`;
+// window.addEventListener('error', async (event) => {
+//   const message =`
+// Ошибка: ${event.message}
+// Файл: ${event.filename}:${event.lineno}
+// Столбец: ${event.colno}
+// Стек ошибки:\n${event.error.stack}`;
 
-  const token = '7159693608:AAE5eKPnwrQMfw7Dm8ETaJ_rLlYLWjO8hf8';
-  const telegramBotURL = 'https://api.telegram.org/bot${token}/sendMessage;'
-  const chatId = '-1002005164665';
+//   const token = '7159693608:AAE5eKPnwrQMfw7Dm8ETaJ_rLlYLWjO8hf8';
+//   const telegramBotURL = 'https://api.telegram.org/bot${token}/sendMessage;'
+//   const chatId = '-1002005164665';
 
-  const formData = new FormData();
-  formData.append('chat_id', chatId);
-  formData.append('text', message);
-  formData.append('parse_mode', 'HTML');
+//   const formData = new FormData();
+//   formData.append('chat_id', chatId);
+//   formData.append('text', message);
+//   formData.append('parse_mode', 'HTML');
 
-  async fetch(telegramBotURL, {
-        method: 'POST',
-        body: formData
-  });
-});
+//   async fetch(telegramBotURL, {
+//         method: 'POST',
+//         body: formData
+//   });
+// });
   
 
 async function getIPAddress() {
